@@ -53,6 +53,10 @@ hr{
     stroke: none;
 }
 
+.state-result{
+    fill:none;
+}
+
 .r-winner.show-stateresult{
     fill: #f69c92;
     stroke: none;
@@ -84,7 +88,7 @@ svg.append('filter')
     .attr('id', 'glow')
     .append('feGaussianBlur')
     .attr('stdDeviation', 10);
-
+var radius = 7;
 var height  = 800;
 var projection = d3.geoAlbersUsa();
 var colour = {
@@ -108,12 +112,12 @@ var barScale = d3.scaleLinear()
     .domain([0,100]);
 
 
-d3.json('http://bertha.ig.ft.com/republish/publish/ig/1XqXuzg62NiXNxuT1MkodvLpy6V_t80gjyFnXvffByL8/basic',function(error,sheet){
+d3.csv('highlight.csv', function(error,data){
     d3.json('us.json', function(err, topoData){
-        mapLayer.call(drawMap, topoData, sheet.data);
+        mapLayer.call(drawMap, topoData, data);
     });
 
-    var projected = sheet.data.map( function(d){
+    var projected = data.map( function(d){
 			[x, y] = projection([d.longitude, d.latitude])
 			return { 
 				originx:x,
@@ -127,12 +131,12 @@ d3.json('http://bertha.ig.ft.com/republish/publish/ig/1XqXuzg62NiXNxuT1MkodvLpy6
     var expanded = expand(projected, 'votes')
             .sort(function(a, b){
                 if(a.winner == 'r') return 1;
-                if(a.winner == 'd') return -1;
+                if(a.winner == 'd') return -1;            
                 return 0;
             });
     
     var layout = d3_iconarray.layout()
-        .width(10);
+        .width(24);
         
     var grid = layout(expanded);
     plot(null, grid);
@@ -142,9 +146,9 @@ function plot(error, data){
   if (error) throw error;
 
   var simulation = d3.forceSimulation(data)
-      .force('x', d3.forceX(function(d) { return d.data.originx; }).strength(1))
-      .force('y', d3.forceY(function(d) { return d.data.originy; }).strength(0.5))
-      .force('collide', d3.forceCollide(5) )
+      .force('x', d3.forceX(function(d) { return d.data.originx; }).strength(0.1))
+      .force('y', d3.forceY(function(d) { return d.data.originy; }).strength(1))
+      .force('collide', d3.forceCollide(8) )
       .stop();
 
   for (var i = 0; i < 250; ++i) simulation.tick();
@@ -221,11 +225,12 @@ function drawMap(parent, us, result) {
 }
 
 function layoutByArray(parentSelection){
-    parentSelection.attr('r', 3)
+    parentSelection
+        .attr('r', radius)
         .attr('cx', function(d) { return barScale(d.position.x)+margin.left; })
         .attr('cy', function(d) { return barScale(d.position.y)+margin.top; })
         .attr('fill', function(d){ 
-            if (!d.data.winner) return '#fff1e0';
+            if (!d.data.winner) return '#000';
             return colour[d.data.winner]; })
         .attr('stroke', function(d){ 
             if (!d.data.winner) return '#bbb';
@@ -235,11 +240,11 @@ function layoutByArray(parentSelection){
 }
 
 function layoutByDotMap(parentSelection){
-    parentSelection.attr('r', 3)
+    parentSelection.attr('r', radius)
         .attr('cx', function(d) { return d.x; })
         .attr('cy', function(d) { return d.y; })
         .attr('fill', function(d){ 
-            if (!d.data.winner) return '#fff1e0';
+            if (!d.data.winner) return '#999';
             return colour[d.data.winner]; })
         .attr('stroke', function(d){ 
             if (!d.data.winner) return '#bbb';
