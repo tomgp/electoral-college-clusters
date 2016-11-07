@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Electoral college dot map</title>
+	  <style>
+      sup{
+        vertical-align: top;
+        font-size: 0.8rem;
+      }
+
+      body{
+        font-family:sans-serif;
+      }
+      .column{
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        max-width:800px;
+      }
+      img{
+        width:100%;
+        padding-top:1rem;
+        padding-bottom:1rem;
+      }
+      .note img{
+        display:block;
+        width:30%;
+      }
+
+      h2{
+        font-size:1.3rem;
+      }
+
+      blockquote{
+        font-family:serif;
+      }
+      .date{
+        border-top:1px solid #999;
+        color:#999;
+        padding-bottom:10px;
+        padding-top:10px;
+      }
+
+      .content{
+        max-width:600px;
+        line-height:1.5rem;
+        font-size:1.1rem;
+      }
+
+      .note{
+        max-width:600px;
+        font-size:0.8rem;
+        line-height:1.2rem;
+      }
+  </style>
+</head>
+<body>
+<div class="column">
+
+<h1>Electoral college dot map</h1>
+<img src="2012-results-dot-map-logo.png">
+<a href="demo.html">demo</a> <a href="https://github.com/tomgp/electoral-college-clusters">source code on gihub</a>
+<h2>What?</h2>
+<p>
+	The picture above is the map I developed for the FT's 2016 US election results coverage &mdash; in this case I've taken off the state names and coloured it in using 2012 results.
+	</p>
+	<p>In designing this graphic our aim was to retain the geographical cues of traditional election results maps whilst giving a clearer idea of the relative importance of various bits of the country with respect to the electoral college. Trade offs are still made but I'm more comfortable with them than the standard <a href="cartcube.png">cartogram vs geographical choropleth positions</a>.
+</p>
+<h2>How?</h2>
+<p>
+	The map was produced by working out a center point (initially the center point of the states bounding box, later tweaked by hand) for each state and using <a href="https://github.com/d3/d3/blob/master/API.md#forces-d3-force">D3s force module</a> to layout the correct number of electoral college circles for a given state in a neat(ish) way. This layout was then edited by hand to give a bit more separation in the crowded north east whilst aiming to retain the visual density of individual state groups. The votes for a given state tend to form a regular grid, this helps with counting, and size comparisons, there's a temptation to try to squeeze points within state boundaries but I resited where possible in order to preserve these properties. I think I'm least satisfied with Massachusetts and Maryland.
+</p>
+<p>
+	My code for the initial sketch of this map is available on <a href="https://github.com/tomgp/electoral-college-clusters">Github</a>. you can <a href="">see a demo here</a> complete with transitions which we never used (we went for delivering it as a flat SVG to the client)
+</p>
+<div class="date">Tom Pearson — November 2016</div>
+</div>
+</body>
+</html>
