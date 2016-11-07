@@ -2,7 +2,6 @@
 <meta charset="utf-8">
 <style>
 body{
-    font-family: -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", sans-serif, "Helvetica Neue", "Lucida Grande";
     background: #fff1e0;
 }
 
@@ -69,7 +68,7 @@ hr{
 
 </style>
 <h1>Result map sketch</h1>
-<button id="display-switch" type="">show bars</button>
+<button id="display-switch" type="">show block</button>
 <hr>
 <svg width="960" height="700"></svg>
 <script src="https://d3js.org/d3.v4.min.js"></script>
@@ -88,7 +87,7 @@ svg.append('filter')
     .attr('id', 'glow')
     .append('feGaussianBlur')
     .attr('stdDeviation', 10);
-var radius = 7;
+var radius = 3;
 var height  = 800;
 var projection = d3.geoAlbersUsa();
 var colour = {
@@ -146,9 +145,9 @@ function plot(error, data){
   if (error) throw error;
 
   var simulation = d3.forceSimulation(data)
-      .force('x', d3.forceX(function(d) { return d.data.originx; }).strength(0.1))
-      .force('y', d3.forceY(function(d) { return d.data.originy; }).strength(1))
-      .force('collide', d3.forceCollide(8) )
+      .force('x', d3.forceX(function(d) { return d.data.originx; }).strength(1))
+      .force('y', d3.forceY(function(d) { return d.data.originy; }).strength(0.5))
+      .force('collide', d3.forceCollide(5) )
       .stop();
 
   for (var i = 0; i < 250; ++i) simulation.tick();
