@@ -70,10 +70,13 @@
 </p>
 <h2>How?</h2>
 <p>
-	The map was produced by working out a center point (initially the center point of the states bounding box, later tweaked by hand) for each state and using <a href="https://github.com/d3/d3/blob/master/API.md#forces-d3-force">D3s force module</a> to layout the correct number of electoral college circles for a given state in a neat way around this point. This layout was then edited by hand to give a bit more separation in the crowded north east whilst aiming to retain the visual density of individual state groups. The votes for a given state tend to form a regular grid, this helps with counting, and size comparisons, there's a temptation to try to squeeze points within state boundaries but I resited where possible in order to preserve these properties. I think I'm least satisfied with Massachusetts and Maryland.
+	The map was produced by working out a center point for each state (initially the center point of the states bounding box, later tweaked by hand) and using <a href="https://github.com/d3/d3/blob/master/API.md#forces-d3-force">D3s force module</a> to layout the correct number of electoral college circles for a given state in a neat way around this point. This layout was then edited by hand to give a bit more separation in the crowded North East whilst aiming to retain the visual density of individual state groups. The votes for a given state tend to form a regular grid, this helps with counting, and size comparisons, there's a temptation to try to squeeze points within state boundaries but I resited where possible in order to preserve these affordances. I think I'm least satisfied with Massachusetts and Maryland.
 </p>
 <p>
-	My code for the initial sketch of this map is available on <a href="https://github.com/tomgp/electoral-college-clusters">Github</a>. you can <a href="">see a demo here</a> complete with transitions which we never used (we went for delivering it as a flat SVG to the client)
+	My code for the initial sketch of this map is available on <a href="https://github.com/tomgp/electoral-college-clusters">Github</a> and you can <a href="">see a demo here</a> complete with transitions which we never used (we went for delivering it as a flat SVG to the client).
+</p>
+<p>
+Also: My colleague Martin Stabe has written in depth about the reasoning behind this: <a href="https://www.ft.com/content/3685bf9e-a4cc-11e6-8b69-02899e8bd9d1">The search for a better US election map</a>
 </p>
 <div class="date">Tom Pearson — November 2016 (comments, questions: <a href="https://www.twitter.com/tomp">@tomp</a>)</div>
 </div>
